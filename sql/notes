@@ -1,0 +1,2 @@
+# Connecting to postgres using batch_user
+psql -U batch_user -d postgres -h localhost -W
