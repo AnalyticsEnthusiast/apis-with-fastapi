@@ -25,3 +25,30 @@ pip freeze > requirements.txt
 #### Install requirements into venv (To rebuild env)
 pip install -r requirements.txt
 
+
+#### Install psycopg2-binary
+pip install psycopg2-binary
+
+#### Postgres Backend Test
+import psycopg2
+
+
+url = "postgres://batch_user:xxxx@localhost:5432/postgres" 
+connection = psycopg2.connect(url)
+cursor = connection.cursor()
+
+cursor.execute("SELECT version();")
+version = cursor.fetchone()
+print(version)
+
+connection.close()
+
+
+#### Docker run Command to talk to DB
+docker run -d --network=host \
+	-e "DB_NAME="postgres" \
+	-e "DB_PORT=5432" \
+	-e "DB_USER=batch_user" \
+	-e "DB_PASS="" \
+	-e "DB_HOST=127.0.0.1" \
+	--name some_name foo/bar
