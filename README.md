@@ -32,7 +32,7 @@ pip install psycopg2-binary
 #### Postgres Backend Test
 import psycopg2
 
-
+#### Example use case for postgres python client
 url = "postgres://batch_user:xxxx@localhost:5432/postgres" 
 connection = psycopg2.connect(url)
 cursor = connection.cursor()
@@ -52,3 +52,9 @@ docker run -d --network=host \
 	-e "DB_PASS="" \
 	-e "DB_HOST=127.0.0.1" \
 	--name some_name foo/bar
+
+#### Running FastAPI using uvicorn
+
+From within the python virtual environment run:
+
+uvicorn app.main:app --reload
