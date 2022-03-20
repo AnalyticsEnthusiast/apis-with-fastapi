@@ -4,9 +4,10 @@ import configparser
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import os
 
 config = configparser.ConfigParser()
-config.read("postgres_api.ini")
+config.read(os.path.join(os.path.dirname(__file__), "postgres_api.ini"))
 
 db_user=config['DEFAULT']['DB_USER']
 db_password=config['DEFAULT']['DB_PASSWORD']

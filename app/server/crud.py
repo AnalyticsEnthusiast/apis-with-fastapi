@@ -3,19 +3,23 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 from . import schemas, models
 from datetime import datetime
-from gen_stock_codes import generate_stock_codes
+from . import gen_stock_codes
 
 def get_customer(db: Session, cust_id: str):
-    return db.query(models.Customer).filter(models.Customer.CustomerID == cust_id).first() 
+    return db.query(models.Customer).filter(models.Customer.customerid == cust_id).first() 
 
 def get_product(db: Session, prod_id: str):
-    return db.query(models.Product).filter(models.Product.StockCode == prod_id).first()
+    return db.query(models.Product).filter(models.Product.stockcode == prod_id).first()
 
 def get_invoice(db: Session, inv_id: str):
-    return db.query(models.Invoice).filter(models.Invoice.InvoiceNumber == inv_id).first()
+    return db.query(models.Invoice).filter(models.Invoice.invoicenumber == inv_id).first()
 
-#def get_invoice_lines(db: Session, inv_id: str):
-#    pass
+def get_invoice_by_cust_id(db: Session, cust_id: str):
+    return db.query(models.Invoice).filter(models.Invoice.customerid == cust_id).all() 
+
+def get_invoice_line_items(db: Session, invoice_no: str):
+    return db.query(models.InvoiceLineItem).filter(models.InvoiceLineItem.invoicenumber == invoice_no).all()
+
 def get_max_custid(db: Session):
     return db.query(func.max(models.Customer.CustomerID)).scalar()
 
@@ -50,7 +54,8 @@ def check_product_exists(db: Session, product_name: str):
 
 def create_product(db: Session, product: schemas.ProductCreate, product_name: str, unit_price: int):
     if not check_product_exists(db, product_name):
-        new_stock_code = generate_stock_code()
+        gsc = gen_stock_code()
+        new_stock_code = gsc.generate_stock_code()
         db_product = models.Product(StockCode=new_stock_code, Description=product_name, UnitPrice=unit_price)
         db.add(db_product)
         db.commit()

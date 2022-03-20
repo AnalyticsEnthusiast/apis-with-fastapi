@@ -5,11 +5,12 @@ from pydantic import BaseModel
 
 
 class CustomerBase(BaseModel):
-    CustomerID: str
-    Country: str
+    customerid: str
+    country: str
 
 class CustomerCreate(CustomerBase):
-    password: str
+    pass
+    #password: str
 
 class Customer(CustomerBase):
     pass
@@ -20,9 +21,9 @@ class Customer(CustomerBase):
 
 
 class ProductBase(BaseModel):
-    StockCode: str
-    Description: str
-    UnitPrice: float
+    stockcode: str
+    description: Optional[str]
+    unitprice: Optional[float]
 
 class ProductCreate(ProductBase):
     pass
@@ -37,9 +38,9 @@ class Product(ProductBase):
 
 
 class InvoiceBase(BaseModel):
-    InvoiceNumber: str
-    InvoiceDate: datetime
-    CustomerID: str
+    invoicenumber: str
+    invoicedate: datetime
+    customerid: str
 
 class InvoiceCreate(InvoiceBase):
     pass
@@ -53,11 +54,11 @@ class Invoice(InvoiceBase):
 
 
 
-class InvoiceLineItemBase(BaseModel)
-    InvoiceLineItemID: int
-    InvoiceNumber: str
-    StockCode: str
-    Quantity: int
+class InvoiceLineItemBase(BaseModel):
+    invoicelineitemid: int
+    invoicenumber: str
+    stockcode: str
+    quantity: int
 
 class InvoiceLineItemCreate(InvoiceLineItemBase):
     pass
