@@ -55,9 +55,9 @@ docker run -d --network=host \
 
 
 #### Tagging and pushing a docker image
-docker tag fastapi_ubuntu <username>/fastapi_ubuntu:v1
+docker tag fastapi_ubuntu username/fastapi_ubuntu:v1
 
-docker push <username>/fastapi_ubuntu:v1
+docker push username/fastapi_ubuntu:v1
 
 #### Running FastAPI using uvicorn
 
