@@ -44,14 +44,20 @@ print(version)
 connection.close()
 
 
-#### Docker run Command to talk to DB
+#### Docker run Commands
 docker run -d --network=host \
 	-e "DB_NAME="postgres" \
 	-e "DB_PORT=5432" \
 	-e "DB_USER=batch_user" \
 	-e "DB_PASS="" \
 	-e "DB_HOST=127.0.0.1" \
-	--name some_name foo/bar
+	--name fastapi fastapi_ubuntu
+
+
+#### Tagging and pushing a docker image
+docker tag fastapi_ubuntu <username>/fastapi_ubuntu:v1
+
+docker push <username>/fastapi_ubuntu:v1
 
 #### Running FastAPI using uvicorn
 
